@@ -3,12 +3,15 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
 }
 
 export default function Navbar() {
+
+  const router = useRouter();
   return (
     <Disclosure as='nav' className='bg-gray-800'>
       {({ open }: any) => (
@@ -16,33 +19,44 @@ export default function Navbar() {
           <div className='mx-auto max-w-7xl px-2 sm:px-4 lg:px-8'>
             <div className='relative flex h-16 items-center justify-between'>
               <div className='flex items-center px-2 lg:px-0'>
-                <div className='flex-shrink-0'>
-                </div>
+                <div className='flex-shrink-0'></div>
                 <div className='hidden lg:ml-6 lg:block'>
                   <div className='flex space-x-4'>
                     {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
                     <Link
                       href={'/'}
-                      className='rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white'
+                      className={`rounded-md ${
+                        router.pathname === '/'
+                          ? ' bg-gray-900'
+                          : ' bg-gray-800'
+                      } px-3 py-2 text-sm font-medium text-white`}
                     >
                       Home
                     </Link>
                     <Link
                       href='/movies'
-                      className='rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white'
+                      className={`rounded-md ${
+                        router.pathname === '/movies'
+                          ? ' bg-gray-900'
+                          : ' bg-gray-800'
+                      } px-3 py-2 text-sm font-medium text-white`}
                     >
                       Movies
                     </Link>
                     <Link
                       href='/watch-list'
-                      className='rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white'
+                      className={`rounded-md ${
+                        router.pathname === '/watch-list'
+                          ? ' bg-gray-900'
+                          : ' bg-gray-800'
+                      } px-3 py-2 text-sm font-medium text-white`}
                     >
                       My watch list
                     </Link>
                   </div>
                 </div>
               </div>
-          
+
               <div className='flex lg:hidden'>
                 {/* Mobile menu button */}
                 <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
